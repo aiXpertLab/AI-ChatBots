@@ -27,6 +27,6 @@ llm_chain = LLMChain(prompt=prompt, llm=llm)
 
 print("Chatbot initialized, ready to chat...")
 while True:
-    question = input("> ")
+    question = input(">>> ")
     answer = llm_chain.run(question)
     print(answer, '\n')
