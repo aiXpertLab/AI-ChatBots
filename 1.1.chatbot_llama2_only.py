@@ -7,26 +7,23 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter, CharacterTex
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain, RetrievalQA
 
-# Load the LlamaCpp language model, adjust GPU usage based on your hardware
-llm = LlamaCpp(
-    model_path = "e:/models/llama/llama-2-7b-chat.Q6_K.gguf",
-    n_gpu_layers=40,
-    n_batch=512,  # Batch size for model processing
-)
+from utils.LangChain_Routine import llm
+from utils.LangChain_Prompt  import GeneralPromptTemplate
 
-# Define the prompt template with a placeholder for the question
-template = """
-Question: {question}
+# 1. Load the LlamaCpp language model, adjust GPU usage based on your hardware
+llm = llm()
 
-Answer:
-"""
-prompt = PromptTemplate(template=template, input_variables=["question"])
+# 2. Define the prompt template with a placeholder for the question
+# prompt = prompt()
+prompt = GeneralPromptTemplate.create_prompt()
+
 
 # Create an LLMChain to manage interactions with the prompt and model
 llm_chain = LLMChain(prompt=prompt, llm=llm)
 
 print("Chatbot initialized, ready to chat...")
-while True:
+question = ""
+while question != "q":
     question = input(">>> ")
     answer = llm_chain.run(question)
     print(answer, '\n')

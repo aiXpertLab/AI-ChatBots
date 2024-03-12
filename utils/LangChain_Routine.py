@@ -1,6 +1,7 @@
 from langchain.prompts import PromptTemplate
 from langchain.text_splitter import RecursiveCharacterTextSplitter, CharacterTextSplitter
 
+from langchain_community.llms       import LlamaCpp, CTransformers
 from langchain_community.vectorstores import Chroma, FAISS
 from langchain_community.document_loaders import DirectoryLoader, TextLoader, PyPDFLoader, WebBaseLoader, PyPDFDirectoryLoader
 
@@ -25,16 +26,11 @@ def store_doc(data_dir, embedding_model):
     retriever = db.as_retriever(search_kwargs={'k': 2})
     return retriever
 
+def llm():
+    llm= LlamaCpp(
+        model_path = "e:/models/llama/llama-2-7b-chat.Q6_K.gguf",
+        n_gpu_layers=40,
+        n_batch=512,  # Batch size for model processing
+    )
+    return llm
 
-def prompt():
-    template = """Use the provided context to answer the user's question. If you don't know the answer, respond with "I do not know".
-
-    Context: {context}
-    Question: {question}
-    Answer:
-    """
-
-    prompt = PromptTemplate(
-        template=template,
-        input_variables=['context', 'question'])
-    return prompt
