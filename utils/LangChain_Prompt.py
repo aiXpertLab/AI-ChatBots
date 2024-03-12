@@ -52,6 +52,23 @@ class IceCreamPromptCreator():
         
         return prompt  
     
+class IceCreamPromptCreatorMemory():
+    #Concrete Creator: MainPromptCreator and IceCreamPromptCreator are concrete creators. 
+    # They subclass PromptCreator and override the create_prompt() method to create instances of PromptTemplate with different templates and input variables, depending on the context.
+    @staticmethod
+    def create_prompt():
+        ice_cream_assistant_template = """
+        Question: {question} 
+        Answer:
+        """
+
+        prompt = PromptTemplate(
+            template=ice_cream_assistant_template,
+            input_variables=["chat_history", "question"])
+        
+        return prompt  
+    
+
 class GeneralPromptTemplate(PromptCreator):
     @staticmethod
     def create_prompt():
@@ -61,4 +78,4 @@ class GeneralPromptTemplate(PromptCreator):
         Answer:
         """
         prompt = PromptTemplate(template=template, input_variables=["question"])
-        return prompt
+        return prompt   
