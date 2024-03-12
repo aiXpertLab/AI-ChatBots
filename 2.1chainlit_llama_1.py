@@ -7,7 +7,8 @@ import chainlit as cl
 from utils.LangChain_Prompt  import IceCreamPromptCreatorMemory
 from utils.LangChain_Routine import llm
 
-
+# 
+# chainlit run 2.1chainlit_llama_1.py -w --port 8001
 
 llm = llm()
 prompt = IceCreamPromptCreatorMemory.create_prompt()
